@@ -12,6 +12,8 @@ const router = express.Router();
 
 router.post("/create", authenticate, createResult);
 router.get("/all", authenticate, getAllResults);
-
+router.get("/:id", authenticate, getResultById);
+router.put("/update/:id", authenticate, updateResult);
+router.delete("/:id", authenticate, deleteResult);
 
 export const ResultRoutes = router;
