@@ -11,6 +11,7 @@ import { authenticate } from "../../Middelware/auth";
 const router = express.Router();
 
 router.post("/create", authenticate, createResult);
+router.get("/all", authenticate, getAllResults);
 
 
 export const ResultRoutes = router;
