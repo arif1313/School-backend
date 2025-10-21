@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 import { StudentRoutes } from './modules/Student/Student.router';
 import { login } from './Middelware/auth.controller';
 import { ManagementRoutes } from './modules/ManageMent/Management.router';
+import { TeacherRoutes } from './modules/Teacher/Teacher.router';
  
 
 const app: Application = express();
@@ -27,7 +28,8 @@ app.post("/auth/login", login);
 
 // Student routes
 app.use("/students", StudentRoutes);
-app.use('/management',ManagementRoutes) // ✅ Correct mounting
+app.use('/management',ManagementRoutes)
+app.use('/teacher',TeacherRoutes) // ✅ Correct mounting
 
 
 
