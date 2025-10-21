@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import { AuthRequest } from "../../Middelware/auth";
 import { resultCreateValidationSchema, resultUpdateValidationSchema } from "./Result.validation";
-import { createResultService, deleteResultService, getAllResultsService, getResultByIdService, updateResultService } from "./Result.sevice";
+import { createResultService, deleteResultService, getAllResultsService, getResultByIdService, getResultsByClassService, getResultsByStudentService, updateResultService } from "./Result.sevice";
 
 export const createResult = async (req: AuthRequest, res: Response) => {
   try {
@@ -50,6 +50,30 @@ export const deleteResult = async (req: AuthRequest, res: Response) => {
   try {
     const deleted = await deleteResultService(req.params.id);
     res.status(200).json({ message: "Result deleted successfully", deleted });
+  } catch (err: any) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+// Student-wise search
+export const getResultsByStudent = async (req: Request, res: Response) => {
+  try {
+    const { studentId } = req.params;
+    const { year, examType } = req.query;
+    const results = await getResultsByStudentService(studentId, Number(year), examType as string);
+    res.status(200).json(results);
+  } catch (err: any) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+// Class-wise search
+export const getResultsByClass = async (req: Request, res: Response) => {
+  try {
+    const { classNumber } = req.params;
+    const { year, examType } = req.query;
+    const results = await getResultsByClassService(Number(classNumber), Number(year), examType as string);
+    res.status(200).json(results);
   } catch (err: any) {
     res.status(400).json({ message: err.message });
   }

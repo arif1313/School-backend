@@ -5,6 +5,8 @@ import {
   getResultById,
   updateResult,
   deleteResult,
+  getResultsByStudent,
+  getResultsByClass,
 } from "./Result.controller";
 import { authenticate } from "../../Middelware/auth";
 
@@ -15,5 +17,12 @@ router.get("/all", authenticate, getAllResults);
 router.get("/:id", authenticate, getResultById);
 router.put("/update/:id", authenticate, updateResult);
 router.delete("/:id", authenticate, deleteResult);
+
+// Search results by student
+router.get("/student/:studentId", authenticate, getResultsByStudent);
+
+// Search results by class
+router.get("/class/:classNumber", authenticate, getResultsByClass);
+
 
 export const ResultRoutes = router;
